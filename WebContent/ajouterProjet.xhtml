@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="WEB-INF/template/mainTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="title">Connexion</ui:define>
+    <ui:define name="content">
+        	<h:outputText value="Pas assez de crédit!" rendered="#{utilisateurBean.u.credit eq 0}"/>
+        	<h:form rendered="#{!utilisateurBean.type and utilisateurBean.u.credit gt 0}">
+        		<h:outputLabel for="nom">Nom du projet: <span class="requis">*</span></h:outputLabel>
+        		<h:inputText id="nom" value="#{projetBean.p.nom}"   size="50" maxlength="50">
+        			<f:validator validatorId="validerProjet"/>
+        			<f:ajax event="blur"  render="nomMessage" />
+        		</h:inputText>
+        		<h:message id="nomMessage" for="nom" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:outputLabel for="n">Nombre de tâches: <span class="requis">*</span></h:outputLabel>
+        		<h:inputText id="n" value="#{projetBean.p.n}"   size="4" maxlength="4">
+        			<f:validator validatorId="validerTache"/>
+        			<f:ajax event="blur"  render="nMessage" />
+        		</h:inputText>
+        		<h:message id="nMessage" for="n" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:outputLabel for="duree">Durée maximum d'une tâche(en s): <span class="requis">*</span></h:outputLabel>
+        		<h:inputText id="duree" value="#{projetBean.p.duree}"   size="3" maxlength="3">
+        			<f:validator validatorId="validerDuree"/>
+        			<f:ajax event="blur"  render="dureeMessage" />
+        		</h:inputText>
+        		<h:message id="dureeMessage" for="duree" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:outputLabel for="type">Tâche à effectuer <span class="requis">*</span></h:outputLabel>
+        		<h:selectOneMenu id="type" value = "#{projetBean.p.type}"> 
+				   <f:selectItem itemValue = "imagelabeling" itemLabel = "étiquetage d'image" /> 
+				   <f:ajax event="blur"  render="typeMessage" />
+				</h:selectOneMenu> 	
+        		<h:message id="typeMessage" for="type" errorClass="erreur" />
+        		<br/>
+        		 		
+        		<h:commandButton value="Ajouter projet" action="#{projetBean.ajouterProjet}" styleClass="sansLabel">
+           			<f:ajax execute="@form" render="@form" />
+           		</h:commandButton>
+        	</h:form>
+
+	</ui:define>
+</ui:composition>

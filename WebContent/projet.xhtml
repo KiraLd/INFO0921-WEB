@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="WEB-INF/template/mainTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="title">Projet</ui:define>
+    <ui:define name="content">
+        		<h:outputText value="Statut du projet: " rendered="#{utilisateurBean.connexion and !utilisateurBean.type}"/>
+	        	<h:outputText value="en cours" rendered="#{!utilisateurBean.p.fini and utilisateurBean.connexion and !utilisateurBean.type}"/>
+	        	<h:outputText value="terminé" rendered="#{utilisateurBean.p.fini and utilisateurBean.connexion and !utilisateurBean.type}"/>
+	        	<h:form rendered="#{utilisateurBean.p.fini and utilisateurBean.connexion and !utilisateurBean.type}">
+	        		<h:outputText value="Récupérer les résultats au format json"></h:outputText>
+	        		
+	        	</h:form>
+	        	<h:commandButton value="Générer" action="#{resultatBean.genererResultat}" />
+	        	<h:form rendered="#{utilisateurBean.p.fini and utilisateurBean.connexion and !utilisateurBean.type and utilisateurBean.download}"><h:commandLink action="#{resultatBean.download}" value="Télécharger"></h:commandLink><h:messages globalOnly="true" />
+	        		
+	        	</h:form >
+	        	<br/>
+	        	<h:outputText value="Tâches uploadés: #{utilisateurBean.p.nbtache}  / #{utilisateurBean.p.n}" rendered="#{utilisateurBean.connexion and !utilisateurBean.type}"/>
+	        	<br/>
+	        	
+	      		<h:outputText value="Nombre de tâche maximum atteint. Vous ne pouvez plus ajouter de tâches à ce projet" rendered="#{utilisateurBean.p.nbtache eq utilisateurBean.p.n and utilisateurBean.connexion and !utilisateurBean.type}"/>
+	        	<h:outputLink value="ajouterTaches.xhtml" rendered="#{utilisateurBean.p.nbtache lt utilisateurBean.p.n and utilisateurBean.connexion and !utilisateurBean.type}">Ajouter une tâche manuellement</h:outputLink>
+
+	</ui:define>
+</ui:composition>

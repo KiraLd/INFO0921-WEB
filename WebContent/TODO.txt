@@ -1,0 +1,21 @@
+TODO:
+-timer contribution primefaces
+
+
+
+
+Nettoyage:
+
+-message validation
+-taille image
+-message dureeMessage
+-validators
+-suppression warning
+-JPA connection
+-crypted password
+-faces config
+-expression régulière url
+-bean/template type de tache à ajouter
+-déploiement openshift
+
+

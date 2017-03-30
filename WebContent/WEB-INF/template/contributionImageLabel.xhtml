@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+	<ui:composition>
+		<h:graphicImage  value="#{utilisateurBean.t.url}" rendered="#{utilisateurBean.t.nomProjet != 'defaut'}"/>
+    	<h:outputText value="Pas de tâches à effectuer" rendered="#{utilisateurBean.t.nomProjet == 'defaut'}"/>
+    	<h:form rendered="#{utilisateurBean.t.nomProjet != 'defaut'}">
+    		<br/>
+    		<h:outputLabel for="label">Tag, séparés par des espaces <span class="requis">*</span></h:outputLabel>
+    		<br/>
+    		<h:inputTextarea id="label" row="10" col="10" value="#{imageLabelBean.text}">
+    			<f:validator validatorId="validerLabel"/>
+        		<f:ajax event="blur" render="labelMessage" />
+    		</h:inputTextarea>
+    		<h:message id="labelMessage" for="label" errorClass="erreur" />
+    		<br/>
+    		<h:commandButton value="Contribution" action="#{imageLabelBean.contribuer}" styleClass="sansLabel">
+           		<f:ajax execute="@form" render="@form" />
+           	</h:commandButton>
+    	</h:form>
+    </ui:composition>
+</h:body>
+</html>

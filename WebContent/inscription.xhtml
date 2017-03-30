@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="WEB-INF/template/mainTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="title">Inscription</ui:define>
+    <ui:define name="content">
+        <h:form rendered="#{!utilisateurBean.connexion}">
+        	<fieldset>
+        		<legend>Inscription</legend>
+        		
+        		
+        		<h:outputLabel for="email">Email <span class="requis">*</span></h:outputLabel>
+        		<h:inputText id="email" value="#{inscrireBean.u.email}"  size="25" maxlength="50">
+        			<f:validator validatorId="validerEmail"/>
+        			<f:ajax event="blur" render="emailMessage" />
+        		</h:inputText>
+        		<h:message id="emailMessage" for="email" errorClass="erreur" />
+        		<br/>
+	
+        		<h:outputLabel for="pseudo">Pseudo <span class="requis">*</span></h:outputLabel>
+        		<h:inputText id="pseudo" value="#{inscrireBean.u.pseudo}"  size="25" maxlength="25">
+        			<f:validator validatorId="validerPseudo"/>
+        			<f:ajax event="blur" render="pseudoMessage" />
+        		</h:inputText>
+        		<h:message id="pseudoMessage" for="pseudo" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:outputLabel for="password" >Mot de passe <span class="requis">*</span></h:outputLabel>
+        		<h:inputSecret id="password" binding="#{cMDP}" value="#{inscrireBean.u.password}" size="25" maxlength="25">
+        			<f:ajax event="blur" execute="password confirmation" render="passwordMessage confirmationMessage"/>        			
+        		</h:inputSecret>
+        		<h:message id="passwordMessage" for="password" errorClass="erreur" />
+        		<br/>
+        		
+        		
+        		<h:outputLabel for="confirmation">Confirmation du mot de passe <span class="requis">*</span></h:outputLabel>
+        		<h:inputSecret id="confirmation" value="#{inscrireBean.u.password}" size="25" maxlength="25">
+        			<f:validator validatorId="confirmerPassword"/>
+        			<f:attribute name="cMDP" value="#{cMDP}" />
+        			<f:ajax event="blur" execute="password confirmation" render="passwordMessage confirmationMessage"/>
+        		</h:inputSecret>
+        		<h:message id="confirmationMessage" for="confirmation" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:outputLabel for="type">Cocher si contributeur</h:outputLabel>
+        		<h:selectBooleanCheckbox value="#{inscrireBean.u.type}"/>
+        		<br/>
+        		
+        		<h:messages globalOnly="true" infoClass="info" />
+           		<h:commandButton value="Inscription" action="#{inscrireBean.inscrire}" styleClass="sansLabel">
+           			<f:ajax execute="@form" render="@form" />
+           		</h:commandButton>
+            	<br/>
+        		
+        	</fieldset>
+        </h:form>
+        <h:outputText value="Vous êtes déjà inscrit et connecté" rendered="#{utilisateurBean.connexion}" />
+    </ui:define>
+</ui:composition>

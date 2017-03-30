@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="WEB-INF/template/mainTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="title">Connexion</ui:define>
+    <ui:define name="content">
+        <h:form rendered="#{!utilisateurBean.connexion}">
+        	<fieldset>
+        		<legend>Connexion</legend>
+        		
+        		<h:outputLabel for="email">Email: <span class="requis">*</span></h:outputLabel>
+        		<h:inputText id="email" value="#{connexionBean.u.email}"  binding="#{cLOGIN}" size="25" maxlength="50">
+        			<f:validator validatorId="validerEmailConnexion"/>
+        			<f:ajax event="blur" execute="email password" render="emailMessage passwordMessage" />
+        		</h:inputText>
+        		<h:message id="emailMessage" for="email" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:outputLabel for="password" >Mot de passe: <span class="requis">*</span></h:outputLabel>
+        		<h:inputSecret id="password"  value="#{connexionBean.u.password}" size="25" maxlength="25">
+        			<f:validator validatorId="validerConnexion"/>
+        			<f:attribute name="cLOGIN" value="#{cLOGIN}" />    			
+        			<f:ajax event="blur" execute="email password" render="emailMessage passwordMessage" />
+        		</h:inputSecret>
+        		<h:message id="passwordMessage" for="password" errorClass="erreur" />
+        		<br/>
+        		
+        		<h:messages globalOnly="true" infoClass="info" />
+           		<h:commandButton value="Connexion" action="#{connexionBean.connexion}" styleClass="sansLabel">
+           			<f:ajax execute="@form" render="@form" />
+           		</h:commandButton>
+            	<br/>
+        		
+        	</fieldset>
+        </h:form>
+        <h:outputText value="Vous êtes déjà connecté" rendered="#{utilisateurBean.connexion}"/>
+        <h:link value="Inscrivez vous pour vous connecter" outcome="inscription.xhtml"></h:link>
+ 	</ui:define>
+</ui:composition>

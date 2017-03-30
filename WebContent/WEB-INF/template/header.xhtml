@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+
+	<ui:composition>
+		<b:navBar brand="Accueil" brandHref="index.xhtml">
+			<b:navbarLinks pull="left">
+				<h:form rendered="#{utilisateurBean.connexion}" styleClass="navbar-form navbar-left">
+		        	<b:navLink value=" #{utilisateurBean.u.pseudo} " href="#"></b:navLink>
+					<b:navLink value=" #{utilisateurBean.u.credit} crédits " rendered="#{utilisateurBean.connexion}" href="#"></b:navLink>
+		        	<b:navCommandLink action="#{utilisateurBean.deconnecter}\" value=" Déconnexion "></b:navCommandLink>
+	   			</h:form>
+	   			<h:form rendered="#{!utilisateurBean.connexion}" styleClass="navbar-form navbar-left">
+        			<b:navCommandLink action="connexion.xhtml" value="Connexion"/>
+     		   	</h:form>
+			</b:navbarLinks>
+		</b:navBar>
+	</ui:composition>
+</h:body>
+</html>
+
+
